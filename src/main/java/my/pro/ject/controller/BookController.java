@@ -12,6 +12,7 @@ import my.pro.ject.domain.Book;
 @Controller
 @RequestMapping("")
 public class BookController {
+
     @Autowired
     private BookService bookServiceImpl;
 
