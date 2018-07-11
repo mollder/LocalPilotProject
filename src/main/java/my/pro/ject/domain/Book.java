@@ -21,15 +21,10 @@ public class Book {
 
     @Column(unique = true)
     @NotNull
-    @NotBlank
     private String bookId;
 
     @NotNull
-    @NotBlank
     private String bookName;
-
-    @NotNull
-    private Boolean isRental;
 
     @javax.persistence.Temporal(TemporalType.DATE)
     private Date rentalDate;

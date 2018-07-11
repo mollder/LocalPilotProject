@@ -1,4 +1,4 @@
-package service;
+package my.pro.ject.service;
 
 import my.pro.ject.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
