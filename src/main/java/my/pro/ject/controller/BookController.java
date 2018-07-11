@@ -19,12 +19,12 @@ public class BookController {
     @RequestMapping(value = "/posts/new", method = RequestMethod.GET)
     public String newPost(Model model) {
         model.addAttribute("book", new Book());
-        return "new";
+        return "index";
     }
 
     @RequestMapping(value = "/")
-    public String index() {
-        return "index";
+    public String bootstrap() {
+        return "bootstrap";
     }
 
 }

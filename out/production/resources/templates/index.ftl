@@ -5,6 +5,13 @@
     <title>My test page</title>
 </head>
 <body>
-    <input type="button" value="버튼이름" onClick="location.href='http://google.com'">
+
+    <p id = "testText"> readme </p>
+
+    <input type="button" value="책 추가" onClick="location.href='http://127.0.0.1:8082/myproject/'">
+
+    <div id = "bookTable">
+
+    </div>
 </body>
 </html>
