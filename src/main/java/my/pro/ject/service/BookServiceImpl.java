@@ -11,8 +11,15 @@ public class BookServiceImpl implements BookService{
     @Autowired
     private BookRepository bookRepository;
 
-    @Override
     public List<Book> seeAllBookList() {
         return bookRepository.findAll();
+    }
+
+    public boolean addBook(Book book) {
+        if(book != null) {
+            bookRepository.save(book);
+            return true;
+        }
+        return false;
     }
 }

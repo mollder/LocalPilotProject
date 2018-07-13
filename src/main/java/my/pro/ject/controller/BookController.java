@@ -16,15 +16,9 @@ public class BookController {
     @Autowired
     private BookService bookServiceImpl;
 
-    @RequestMapping(value = "/posts/new", method = RequestMethod.GET)
-    public String newPost(Model model) {
-        model.addAttribute("book", new Book());
+    @RequestMapping(value = "index")
+    public String newPost() {
         return "index";
-    }
-
-    @RequestMapping(value = "/")
-    public String learnVue() {
-        return "learningVue";
     }
 
     @RequestMapping(value = "/test")
@@ -32,5 +26,10 @@ public class BookController {
         return "test";
     }
 
-    public
+    @RequestMapping(value ="book", method = RequestMethod.POST)
+    public String addBook(Book book, Model model) {
+        boolean result = bookServiceImpl.addBook(book);
+        model.addAttribute("message", result);
+        return "index";
+    }
 }

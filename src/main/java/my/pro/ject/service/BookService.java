@@ -5,5 +5,6 @@ import java.util.List;
 
 
 public interface BookService {
-    public List<Book> seeAllBookList();
+    List<Book> seeAllBookList();
+    boolean addBook(Book book);
 }
