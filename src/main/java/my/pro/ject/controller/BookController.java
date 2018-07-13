@@ -23,8 +23,14 @@ public class BookController {
     }
 
     @RequestMapping(value = "/")
-    public String bootstrap() {
-        return "bootstrap";
+    public String learnVue() {
+        return "learningVue";
     }
 
+    @RequestMapping(value = "/test")
+    public String testVue() {
+        return "test";
+    }
+
+    public
 }

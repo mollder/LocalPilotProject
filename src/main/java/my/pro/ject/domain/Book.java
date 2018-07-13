@@ -24,6 +24,8 @@ public class Book {
     @NotNull
     private String bookName;
 
-    @javax.persistence.Temporal(TemporalType.DATE)
-    private Date rentalDate;
+    @NotNull
+    private boolean isRantal;
+
+    private Date rantalDate;
 }

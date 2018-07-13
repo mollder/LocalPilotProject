@@ -3,14 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>My test page</title>
+    <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
     <p id = "testText"> readme </p>
 
-    <input type="button" value="책 추가" onClick="location.href='http://127.0.0.1:8082/myproject/'">
+    <input type="button" id = "add-book" value="책 추가" v-on:click="addBook">
 
-    <div id = "bookTable">
+    <div id = "book-table">
 
     </div>
+    <script src = "js/index.js"></script>
 </body>
 </html>
