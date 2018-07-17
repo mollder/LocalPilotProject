@@ -5,6 +5,8 @@ import my.pro.ject.repository.BookRepository;
 import my.pro.ject.dto.BookDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,5 +30,21 @@ public class BookServiceImpl implements BookService{
     @Override
     public List<Book> findBookList() {
         return bookRepository.findAllBy();
+    }
+
+    @Override
+    public Book borrowOrBook(Book book) {
+        if(book.isBorrow()) {
+            book.setBorrow(false);
+            book.setBorrowDate(null);
+        }
+        else {
+            book.setBorrow(true);
+            book.setBorrowDate(new Date());
+        }
+
+        bookRepository.save(book);
+
+        return book;
     }
 }

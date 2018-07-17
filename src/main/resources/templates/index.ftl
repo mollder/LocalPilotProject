@@ -27,22 +27,25 @@
         </form>
     </div>
 
-    <div id = 'check-book-div' class="container">
+    <div id = 'find-book-div' class="container">
         <button id="check-book-button" @click="findBookList"> 책 리스트 확인 </button>
         <button id="hide-book-button" @click="hideBookList"> 책 리스트 숨기기</button>
 
         <div>
             <ul class="list-group">
-                <li v-for="book in bookList" class="list-group-item">
-                    <input type="checkbox" id = "book-id" value="{{book.bookId}}" v-model="bookId"/>
+                <li v-for="book in bookList" :key="book.bookId" class="list-group-item">
+                   <input type="radio" v-bind:id ='book.bookId' v-bind:value="book.bookId" v-model="checkBookId"/>
                     책 이름 : {{book.bookName}} <br>
                     책 아이디: {{book.bookId}}  <br>
-                    책 대여여부 : {{book.borrow}}
-                    <button id="book-borrow-button" @click="bookBorrow">대여</button>
-                    <button id="book-return-button" @click="bookReturn">반납</button>
+                    책 대여여부 : {{book.borrow}} <!-- 여기에 새로운 변수를 만들어서 대여중인 경우 대여자 이름까지 표시  -->
                 </li>
             </ul>
         </div>
+    </div>
+
+    <div id = 'borrow-return-book-div'>
+        <button id="book-borrow-button" @click="borrowBookFunc">대여</button>
+        <button id="book-return-button" @click="returnBookFunc">반납</button>
     </div>
 
     <script src = "js/index.js"></script>

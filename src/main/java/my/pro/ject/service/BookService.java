@@ -11,4 +11,6 @@ public interface BookService {
     boolean addBook(BookDto bookDTO);
 
     List<Book> findBookList();
+
+    Book borrowOrBook(Book book);
 }

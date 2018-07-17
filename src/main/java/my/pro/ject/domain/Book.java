@@ -27,22 +27,5 @@ public class Book {
     @Column(name = "isBorrow")
     private boolean isBorrow = false;
 
-    /*
-    public static class Builder {
-        private Boolean include = false; // Here it comes your default value
-
-        public Builder include(Boolean include) {
-            this.include = include;
-            return this;
-        }
-
-        public Book build() {
-            Book book = new Book ();
-            book.setBorrow(include);
-            return book;
-        }
-    }
-    */
-
     private Date borrowDate;
 }

@@ -5,9 +5,7 @@ import my.pro.ject.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import my.pro.ject.domain.Book;
 
@@ -31,7 +29,7 @@ public class BookController {
     }
 
     @RequestMapping(value ="book", method = RequestMethod.POST)
-    public String addBook(BookDto bookDto, String name, Model model) {
+    public String addBook(BookDto bookDto) {
         boolean result = bookServiceImpl.addBook(bookDto);
         return "index";
     }
@@ -42,5 +40,12 @@ public class BookController {
         List<Book> bookList = bookServiceImpl.findBookList();
 
         return bookList;
+    }
+
+    @RequestMapping(value = "book", method = RequestMethod.PUT, headers = "Accept=application/json")
+    @ResponseBody
+    public Book borrowOrReturnBook(@RequestBody Book book) {
+        Book result = bookServiceImpl.borrowOrBook(book);
+        return result;
     }
 }
