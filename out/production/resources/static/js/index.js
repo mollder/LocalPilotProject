@@ -78,7 +78,7 @@ var borrowReturnBook = new Vue({
                     }).then(function (response) {
                         console.log(response.data);
                         findBook.bookList[borrowReturnBook.index] = response.data;
-                        findBook.bookList[borrowReturnBook.index].borrow = "대여중";
+                        findBook.bookList[borrowReturnBook.index].borrow = '대여중';
                     });
                 } else {
                     alert("이 책은 이미 대여중입니다.");
@@ -105,7 +105,7 @@ var borrowReturnBook = new Vue({
                     }).then(function (response) {
                         console.log(response.data);
                         findBook.bookList[borrowReturnBook.index] = response.data;
-                        findBook.bookList[borrowReturnBook.index].borrow = "대여가능";
+                        findBook.bookList[borrowReturnBook.index].borrow = '대여가능';
                     });
                 } else {
                     alert("이 책은 대여 가능한 책입니다.");
@@ -116,17 +116,3 @@ var borrowReturnBook = new Vue({
         }
     }
 });
-/*
-var returnBook = new Vue({
-    method: {
-        returnBookfunc: function() {
-            axios({
-                method:'put',
-                url:'http://127.0.0.1:8082/myproject/book',
-                responseType:'json'
-            }).then(function (response) {
-
-            });
-        }
-    }
-});*/

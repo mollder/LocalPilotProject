@@ -16,7 +16,7 @@ public class User {
     private int userIdx;
     @NotNull
     @Id
-    private int userId;
+    private String userId;
     @NotNull
     private String userPassword;
     @NotNull
@@ -26,4 +26,6 @@ public class User {
     private String email;
     @NotNull
     private String token;
+    @NotNull
+    private String refreshToken;
 }
