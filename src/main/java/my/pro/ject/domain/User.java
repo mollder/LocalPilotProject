@@ -11,19 +11,19 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@Entity
+@Entity
 public class User {
-   @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int userIdx;
-
     @NotNull
     @Id
     private int userId;
+    @NotNull
+    private String userPassword;
     @NotNull
     private String userName;
     @NotNull
     @Email
     private String email;
-
+    @NotNull
+    private String token;
 }

@@ -9,11 +9,24 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configurable
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String[] AUTH_WHITELIST = {
+            "/home",
+            "/",
+            "/auth",
+            "/js/**",
+            "/css/**"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/myproject", "/", "/js/**", "/css/**").permitAll();
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers("/myproject/book/**").hasAnyAuthority("USER")
+                .antMatchers("myproject/index/**").hasAnyAuthority("USER")
+                .antMatchers("/**").authenticated()
+                .and()
+                .sessionManagement();
     }
 }

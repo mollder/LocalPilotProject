@@ -3,7 +3,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>Awesome Stories</title>
+    <title>포털개발팀 도서대여 - 로그인</title>
 </head>
 <body>
 
@@ -36,7 +36,13 @@
                         userPassword: sendUser.userPassword,
                     },
                 }).then(function (response) {
-                    console.log(response);
+                    if(response.data.access_token === undefined) {
+                        if(response.data.error === 'id_pw_not_match') alert('아이디와 비밀번호가 올바르지 않습니다.');
+                        else alert('비활성화된 계정입니다.');
+                    }else {
+                        alert("로그인에 성공하셨습니다.");
+                        window.location.href = 'http://127.0.0.1:8082/myproject/index';
+                    }
                 });
             }
         }
