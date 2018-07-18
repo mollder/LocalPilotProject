@@ -1,7 +1,6 @@
 package my.pro.ject.auth;
 
 import my.pro.ject.domain.User;
-import my.pro.ject.dto.Oauth2TokenPostApiResponseDto;
 import my.pro.ject.dto.V1AuthUserGetAPIResponseDto;
 import my.pro.ject.http.HttpCommunication;
 import my.pro.ject.service.BookService;
@@ -11,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Component;
 
@@ -28,26 +28,27 @@ public class PasswordCredentialLogin implements Login {
 
     @Override
     public Object login(String userId, String userPassword, HttpSession httpSession) {
-        ResponseEntity<Oauth2TokenPostApiResponseDto> tokenResponse = httpCommunication.passwordCredentialHttpCommunication(userId, userPassword);
+        ResponseEntity<OAuth2AccessToken> tokenResponse = httpCommunication.passwordCredentialHttpCommunication(userId, userPassword);
 
-        if(tokenResponse.toString().contains("access_token")) {
-            String token = tokenResponse.getBody().getAccess_token();
-            String refreshToken = tokenResponse.getBody().getRefresh_token();
+        if(tokenResponse.getBody().getTokenType().equals("bearer")) {
+            String token = tokenResponse.getBody().getValue();
+            String refreshToken = tokenResponse.getBody().getRefreshToken().getValue();
+            String tokenType = tokenResponse.getBody().getTokenType();
 
             User user = userService.findUser(userId);
 
             if(user == null) {
-                ResponseEntity<V1AuthUserGetAPIResponseDto> userResponse = httpCommunication.getUserHttpCommunication(token);
+                ResponseEntity<V1AuthUserGetAPIResponseDto> userResponse = httpCommunication.getUserHttpCommunication(tokenResponse.getBody());
                 V1AuthUserGetAPIResponseDto v1AuthUserGetAPIResponseDto = userResponse.getBody();
-                user = new User(v1AuthUserGetAPIResponseDto.getUserIdx(), userId, userPassword, v1AuthUserGetAPIResponseDto.getUserName(), v1AuthUserGetAPIResponseDto.getUserEmail(), token, refreshToken);
+                user = new User(v1AuthUserGetAPIResponseDto.getIndex(), userId, userPassword, v1AuthUserGetAPIResponseDto.getName(), v1AuthUserGetAPIResponseDto.getEmail(), token, refreshToken);
             }else {
                 user.setToken(token);
                 user.setRefreshToken(refreshToken);
             }
-            userService.insertUser(user);
 
-            userAuthorize(userId, userPassword, httpSession);
+            userService.insertUser(user);
         }
+        userAuthorize(userId, userPassword, httpSession);
 
         return tokenResponse;
     }

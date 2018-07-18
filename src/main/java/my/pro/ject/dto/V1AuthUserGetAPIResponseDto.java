@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class V1AuthUserGetAPIResponseDto {
-    private int userIdx;
-    private String userName;
-    private String userEmail;
+    private int index;
+    private String name;
+    private String email;
 }
