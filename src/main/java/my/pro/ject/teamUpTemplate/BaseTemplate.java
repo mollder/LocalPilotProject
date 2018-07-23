@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpSession;
-
 @Component
 public class BaseTemplate {
     RestTemplate restTemplate = new RestTemplate();

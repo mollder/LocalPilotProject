@@ -21,10 +21,7 @@ public class OAuth2Template {
     public ResponseEntity<OAuth2AccessToken> getToken(String userId, String userPassword) {
         HttpHeaders httpHeaders = getHeader();
 
-        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
-                .scheme(scheme)
-                .host(host)
-                .path("/oauth2/token")
+        UriComponentsBuilder builder = getUri()
                 .queryParam("grant_type", grant_type)
                 .queryParam("client_id", client_id)
                 .queryParam("client_secret", client_secret)
@@ -38,15 +35,19 @@ public class OAuth2Template {
     public ResponseEntity<OAuth2AccessToken> refreshToken(String refreshToken) {
         HttpHeaders httpHeaders = getHeader();
 
-        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
-                .scheme(scheme)
-                .host("auth.tump.com")
-                .path("/oauth2/token")
+        UriComponentsBuilder builder = getUri()
                 .queryParam("grant_type", grant_type)
                 .queryParam("refresh_token", refreshToken);
         HttpEntity entity = new HttpEntity(httpHeaders);
 
         return restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, OAuth2AccessToken.class);
+    }
+
+    private UriComponentsBuilder getUri() {
+        return UriComponentsBuilder.newInstance()
+                .scheme(scheme)
+                .host(host)
+                .path("/oauth2/token");
     }
 
     public HttpHeaders getHeader() {

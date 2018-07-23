@@ -6,14 +6,12 @@ import my.pro.ject.pojo.v3.Say;
 import my.pro.ject.pojo.v3.V3Room;
 import my.pro.ject.pojo.v3.roomCreate;
 import my.pro.ject.teamUpTemplate.BaseTemplate;
-import my.pro.ject.teamUpTemplate.bot.BotAlarmManager;
 import my.pro.ject.teamUpTemplate.bot.BotTokenManager;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
 @RequiredArgsConstructor
@@ -25,11 +23,11 @@ public class V3Template extends BaseTemplate {
     private String url = "https://edge.tmup.com/v3/";
 
     public ResponseEntity<V3Room> createRoom(int botTeamNum, Member member) {
-        String url = this.url+"room/" + botTeamNum;
+        String url = this.url+"room/" + botTeamNum; // 봇의 팀 넘버
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
 
         Number[] teams = new Number[1];
-        teams[0] = member.getMemberIdx();// 내 번호
+        teams[0] = member.getMemberIdx();// 로그인한 사람 번호
         Object inviteUser = roomCreate.create(teams);
 
         ParameterizedTypeReference<V3Room> p = new ParameterizedTypeReference<V3Room>() {
