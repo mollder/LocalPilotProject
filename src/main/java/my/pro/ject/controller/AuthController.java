@@ -1,8 +1,11 @@
 package my.pro.ject.controller;
 
-import my.pro.ject.auth.Login;
-import my.pro.ject.dto.UserAuthDto;
+import my.pro.ject.login.PasswordCredentialLogin;
+import my.pro.ject.pojo.MembAuthReqObj;
+import my.pro.ject.teamUpTemplate.BaseTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +19,9 @@ import javax.servlet.http.HttpSession;
 public class AuthController {
 
     @Autowired
-    private Login login;
+    private PasswordCredentialLogin login;
+    @Autowired
+    private BaseTemplate baseTemplate;
 
     @RequestMapping("")
     public String auth() {
@@ -25,7 +30,7 @@ public class AuthController {
 
     @RequestMapping(value = "auth", method = RequestMethod.POST)
     @ResponseBody
-    public Object sendUserInformation(@RequestBody UserAuthDto userAuthDto, HttpSession httpSession) {
-        return login.login(userAuthDto.getUserId(), userAuthDto.getUserPassword(), httpSession);
+    public ResponseEntity<OAuth2AccessToken> sendUserInformation(@RequestBody MembAuthReqObj membAuthReqObj, HttpSession httpSession) {
+        return login.login(membAuthReqObj.getMemberId(), membAuthReqObj.getMemberPassword(), httpSession);
     }
 }

@@ -10,10 +10,10 @@
 <div id = 'team-up-login-div'>
     <form id = "team-up-login-form" @submit.prevent="sendUserInformation">
             <label for="id">teamUp id :</label>
-            <input type="text" name="id" v-model="userId" />
+            <input type="text" name="id" v-model="memberId" />
 
             <label for="password">password :</label>
-            <input type="text" name="password" v-model="userPassword"/>
+            <input type="text" name="password" v-model="memberPassword"/>
         <input type="submit" value="전송"/>
     </form>
 </div>
