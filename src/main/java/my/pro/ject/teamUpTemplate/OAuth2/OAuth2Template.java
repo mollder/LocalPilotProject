@@ -15,14 +15,15 @@ public class OAuth2Template {
     String client_id = "gg4qe2ay3kfj6o2gu888jqu2ldcl5bny";
     String client_secret = "omcbx76tvrkpom45";
     String grant_type = "password";
+    String scheme = "https";
+    String host = "auth.tmup.com";
 
-    public ResponseEntity<OAuth2AccessToken> passwordCredentialHttpCommunication(String userId, String userPassword) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+    public ResponseEntity<OAuth2AccessToken> getToken(String userId, String userPassword) {
+        HttpHeaders httpHeaders = getHeader();
 
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("auth.tmup.com")
+                .scheme(scheme)
+                .host(host)
                 .path("/oauth2/token")
                 .queryParam("grant_type", grant_type)
                 .queryParam("client_id", client_id)
@@ -32,5 +33,26 @@ public class OAuth2Template {
         HttpEntity entity = new HttpEntity(httpHeaders);
 
         return restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, OAuth2AccessToken.class);
+    }
+
+    public ResponseEntity<OAuth2AccessToken> refreshToken(String refreshToken) {
+        HttpHeaders httpHeaders = getHeader();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+                .scheme(scheme)
+                .host("auth.tump.com")
+                .path("/oauth2/token")
+                .queryParam("grant_type", grant_type)
+                .queryParam("refresh_token", refreshToken);
+        HttpEntity entity = new HttpEntity(httpHeaders);
+
+        return restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, OAuth2AccessToken.class);
+    }
+
+    public HttpHeaders getHeader() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+
+        return httpHeaders;
     }
 }

@@ -28,9 +28,6 @@
     </div>
 
     <div id = 'find-book-div' class="container">
-        <button id="check-book-button" @click="findBookList"> 책 리스트 확인 </button>
-        <button id="hide-book-button" @click="hideBookList"> 책 리스트 숨기기</button>
-
         <div>
             <ul class="list-group">
                 <li v-for="book in bookList" :key="book.bookId" class="list-group-item">
@@ -41,6 +38,10 @@
                 </li>
             </ul>
         </div>
+    </div>
+
+    <div id = 'page-div' class='container'>
+
     </div>
 
     <div id = 'borrow-return-book-div'>

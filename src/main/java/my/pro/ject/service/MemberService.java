@@ -1,14 +1,17 @@
 package my.pro.ject.service;
 
+import lombok.RequiredArgsConstructor;
 import my.pro.ject.domain.Member;
 import my.pro.ject.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
+
 @Service
+@RequiredArgsConstructor
 public class MemberService {
-    @Autowired
-    private MemberRepository memberRepository;
+    @NotNull
+    private final MemberRepository memberRepository;
 
     public Member findMember(String memberId) {
         return memberRepository.findMemberByMemberId(memberId);

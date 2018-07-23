@@ -20,7 +20,7 @@ var sendUser = new Vue({
                     else alert('비활성화된 계정입니다.');
                 }else {
                     alert("로그인에 성공하셨습니다.");
-                    window.location.href = 'http://127.0.0.1:8082/myproject/index';
+                    //window.location.href = 'http://127.0.0.1:8082/myproject/index';
                 }
             });
         }

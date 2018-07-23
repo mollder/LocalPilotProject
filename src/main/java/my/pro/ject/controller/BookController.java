@@ -1,10 +1,10 @@
 package my.pro.ject.controller;
 
+import lombok.RequiredArgsConstructor;
 import my.pro.ject.domain.Member;
 import my.pro.ject.pojo.AddBookReqObj;
 import my.pro.ject.service.BookService;
 import my.pro.ject.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +12,18 @@ import org.springframework.web.bind.annotation.*;
 import my.pro.ject.domain.Book;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("")
 public class BookController {
-    @Autowired
-    private BookService bookService;
-    @Autowired
-    private MemberService memberService;
+    @NotNull
+    private final BookService bookService;
+    @NotNull
+    private final MemberService memberService;
 
     @RequestMapping(value = "index")
     public String newPost(Model model) {
@@ -54,5 +56,11 @@ public class BookController {
         Member member = memberService.findMember(principal.getName());
         Book result = bookService.borrowOrReturnBook(book, member);
         return result;
+    }
+
+    @RequestMapping(value = "bookNum", method = RequestMethod.GET)
+    @ResponseBody
+    public long findBookNum() {
+        return bookService.findBookCount();
     }
 }

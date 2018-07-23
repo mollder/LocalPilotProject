@@ -13,33 +13,31 @@ import javax.servlet.http.HttpSession;
 public class BaseTemplate {
     RestTemplate restTemplate = new RestTemplate();
 
-    protected <T> ResponseEntity<T> get(String url, ParameterizedTypeReference<T> p, HttpSession httpSession) {
-        return send(url, null, HttpMethod.GET, p, httpSession);
+    protected <T> ResponseEntity<T> get(String url, ParameterizedTypeReference<T> p, OAuth2AccessToken oAuth2AccessToken) {
+        return send(url, null, HttpMethod.GET, p, oAuth2AccessToken);
     }
 
-    protected <T> ResponseEntity<T> put(String url, Object request, ParameterizedTypeReference<T> p, HttpSession httpSession) {
-        return send(url, request, HttpMethod.PUT, p, httpSession);
+    protected <T> ResponseEntity<T> put(String url, Object request, ParameterizedTypeReference<T> p, OAuth2AccessToken oAuth2AccessToken) {
+        return send(url, request, HttpMethod.PUT, p, oAuth2AccessToken);
     }
 
-    protected <T> ResponseEntity<T> post(String url, Object request, ParameterizedTypeReference<T> p, HttpSession httpSession) {
-        return send(url, request, HttpMethod.POST, p, httpSession);
+    protected <T> ResponseEntity<T> post(String url, Object request, ParameterizedTypeReference<T> p, OAuth2AccessToken oAuth2AccessToken) {
+        return send(url, request, HttpMethod.POST, p, oAuth2AccessToken);
     }
 
-    private HttpHeaders getHerader(HttpSession httpSession) {
-        OAuth2AccessToken token = (OAuth2AccessToken) httpSession.getAttribute("token");
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        httpHeaders.set("Authorization", token.getTokenType()+" "+token.getValue());
-
-        return httpHeaders;
-    }
-
-    private <T> ResponseEntity<T> send(String url, Object request, HttpMethod httpMethod, ParameterizedTypeReference<T> p, HttpSession httpSession) {
-        HttpHeaders httpHeaders = getHerader(httpSession);
+    private <T> ResponseEntity<T> send(String url, Object request, HttpMethod httpMethod, ParameterizedTypeReference<T> p, OAuth2AccessToken oAuth2AccessToken) {
+        HttpHeaders httpHeaders = getHerader(oAuth2AccessToken);
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(request, httpHeaders);
 
         return restTemplate.exchange(UriComponentsBuilder.fromUriString(url).toUriString(), httpMethod, httpEntity, p);
+    }
+
+    private HttpHeaders getHerader(OAuth2AccessToken oAuth2AccessToken) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        httpHeaders.set("Authorization", oAuth2AccessToken.getTokenType()+" "+oAuth2AccessToken.getValue());
+
+        return httpHeaders;
     }
 }
