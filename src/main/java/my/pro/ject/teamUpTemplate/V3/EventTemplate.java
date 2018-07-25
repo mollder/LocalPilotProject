@@ -24,7 +24,6 @@ public class EventTemplate extends BaseTemplate {
 
         ParameterizedTypeReference<Object> p = new ParameterizedTypeReference<Object>() {
         };
-
         return get(builder.toUriString(), p, botTokenManager.getBotToken());
     }
 }

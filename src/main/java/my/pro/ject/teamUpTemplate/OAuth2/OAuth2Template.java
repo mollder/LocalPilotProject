@@ -18,7 +18,6 @@ public class OAuth2Template {
     static final String client_id = "gg4qe2ay3kfj6o2gu888jqu2ldcl5bny";
     String client_secret = "omcbx76tvrkpom45";
     String grant_type = "password";
-    //전체 url로 좀 더 보기 편하게
     String scheme = "https";
     String host = "auth.tmup.com";
 

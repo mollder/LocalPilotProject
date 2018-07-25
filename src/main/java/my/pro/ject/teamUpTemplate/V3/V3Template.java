@@ -25,9 +25,8 @@ public class V3Template extends BaseTemplate {
     public ResponseEntity<V3Room> createRoom(int botTeamNum, Member member) {
         String url = this.url + "room/" + botTeamNum; // 봇의 팀 넘버
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
-
-        Number[] teams = new Number[]{member.getMemberIdx()};
-        teams[0] = member.getMemberIdx();// 로그인한 사람 번호
+        
+        Number[] teams = new Number[]{member.getTeamUpIdx()};
         Object inviteUser = RoomUsers.create(teams);
 
         ParameterizedTypeReference<V3Room> p = new ParameterizedTypeReference<V3Room>() {

@@ -13,9 +13,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Book {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idx;
-
     @Id
     private String bookId;
 

@@ -17,6 +17,11 @@ public class BookController {
     @NotNull
     private final BookService bookService;
 
+    @RequestMapping("")
+    public String home() {
+        return "home";
+    }
+
     @RequestMapping(value = "index")
     public String newPost(Model model) {
         model.addAttribute("message", "false");

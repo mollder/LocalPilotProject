@@ -19,9 +19,10 @@ public class V1Template extends BaseTemplate {
                 .scheme(scheme)
                 .host(host)
                 .path("/v1/user");
+
         ParameterizedTypeReference<MemberGetV1> p = new ParameterizedTypeReference<MemberGetV1>() {
         };
 
-        return get(builder.toUriString(), p , oAuth2AccessToken);
+        return get(builder.toUriString(), p,  oAuth2AccessToken);
     }
 }

@@ -1,7 +1,6 @@
 package my.pro.ject.pojo.v1;
 
 import lombok.*;
-
 @Getter
 @Setter
 @AllArgsConstructor

@@ -61,8 +61,7 @@ public class BotAlarmManager {
     private int getTeamNum() {
         ResponseEntity<MemberGetV1> memberResponse = v1Template.getUserHttpCommunication(botTokenManager.getBotToken());
 
-        LinkedHashMap<String, Integer> linkedHashMap = (LinkedHashMap<String, Integer>) memberResponse.getBody().getTeams()[0];
-        System.out.println();
+        LinkedHashMap<String, Integer> linkedHashMap = (LinkedHashMap<String, Integer>)memberResponse.getBody().getTeams()[0];
         return linkedHashMap.get("index");
     }
 }

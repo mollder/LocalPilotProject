@@ -14,7 +14,7 @@ public class Member {
     @Id
     private String memberId;
     private String memberName;
-    private int memberIdx;
+    private int teamUpIdx;
     private String email;
     private Number teamNum;
 }

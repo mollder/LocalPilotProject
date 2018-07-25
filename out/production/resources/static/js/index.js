@@ -131,9 +131,7 @@ var borrowReturnBook = new Vue({
                         data: {
                             bookId: borrowReturnBook.findBorrowReturnBook.bookId,
                             bookName: borrowReturnBook.findBorrowReturnBook.bookName,
-                            borrow: false,
-                            borrowDate: borrowReturnBook.findBorrowReturnBook.borrowDate,
-                            idx: borrowReturnBook.findBorrowReturnBook.idx
+                            borrow: false
                         },
                     }).then(function (response) {
                         console.log(response.data);
@@ -159,9 +157,7 @@ var borrowReturnBook = new Vue({
                         data: {
                             bookId: borrowReturnBook.findBorrowReturnBook.bookId,
                             bookName: borrowReturnBook.findBorrowReturnBook.bookName,
-                            borrow: true,
-                            borrowDate: borrowReturnBook.findBorrowReturnBook.borrowDate,
-                            idx: borrowReturnBook.findBorrowReturnBook.idx
+                            borrow: true
                         },
                     }).then(function (response) {
                         console.log(response.data);

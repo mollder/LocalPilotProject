@@ -43,7 +43,7 @@ public class BookService {
     }
 
     public List<PageBook> findPageBook(int pageNum) {
-        PageRequest request = new PageRequest(pageNum-1, 5, Sort.Direction.ASC, "idx");
+        PageRequest request = new PageRequest(pageNum-1, 5, Sort.Direction.ASC, "bookId");
         List<Book> bookList = bookRepository.findAllBy(request);
 
         List<PageBook> list = new LinkedList<>();

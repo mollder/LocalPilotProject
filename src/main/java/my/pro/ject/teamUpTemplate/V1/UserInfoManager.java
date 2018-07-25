@@ -28,7 +28,7 @@ public class UserInfoManager {
             OAuth2AccessToken oAuth2AccessToken = (OAuth2AccessToken) httpSession.getAttribute("token");
             ResponseEntity<MemberGetV1> memberResponse = v1Template.getUserHttpCommunication(oAuth2AccessToken);
 
-            LinkedHashMap<String, Integer> linkedHashMap = (LinkedHashMap<String, Integer>) memberResponse.getBody().getTeams()[0];
+            LinkedHashMap<String, Integer> linkedHashMap = (LinkedHashMap<String, Integer>)memberResponse.getBody().getTeams()[0];
             MemberGetV1 memberGetV1 = memberResponse.getBody();
             member = new Member(memberId, memberGetV1.getName(), memberGetV1.getIndex(),
                     memberGetV1.getEmail(), linkedHashMap.get("index"));
