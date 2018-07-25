@@ -3,23 +3,23 @@ Vue.component('page-button', {
     data: function () {
         findBook.pageIndex++;
         return {
-            pageId: 'page'+findBook.curPageGroup*10+findBook.pageIndex,
-            pageNum: findBook.curPageGroup*10+findBook.pageIndex
+            pageId: 'page' + findBook.curPageGroup * 10 + findBook.pageIndex,
+            pageNum: findBook.curPageGroup * 10 + findBook.pageIndex
         }
     },
     methods: {
         getBookList: function () {
             axios({
-                method:'get',
-                url:'http://127.0.0.1:8082/myproject/book',
-                responseType:'json',
+                method: 'get',
+                url: './book',
+                responseType: 'json',
                 params: {
                     pageNum: this.pageNum
                 }
-            }).then(function(response) {
+            }).then(function (response) {
                 // 리스폰 개수 만큼 html 태그를 만들어서 값을 집어넣어주면 됨
                 var ready = response.data.map(function (book) {
-                    if(book.borrow === false) book.borrow = '대여가능';
+                    if (book.borrow === false) book.borrow = '대여가능';
                     else book.borrow = '대여중';
                     return book
                 });
@@ -33,7 +33,7 @@ Vue.component('page-button', {
 var addBook = new Vue({
     el: "#add-book-div",
     data: {
-        visible : false
+        visible: false
     },
     methods: {
         add: function () {
@@ -56,33 +56,33 @@ var findBook = new Vue({
     },
     mounted: function () {
         axios({
-            method:'get',
-            url:'http://127.0.0.1:8082/myproject/bookNum', // 상대경로
-            responseType:'json'
-        }).then(function(response) {
+            method: 'get',
+            url: './bookNum', // 상대경로
+            responseType: 'json'
+        }).then(function (response) {
             // 리스폰 개수 만큼 html 태그를 만들어서 값을 집어넣어주면 됨
             findBook.bookCount = response.data;
-            findBook.totalPageNum = parseInt(findBook.bookCount/5);
-            if(findBook.bookCount % 5 !== 0) findBook.totalPageNum++;
+            findBook.totalPageNum = parseInt(findBook.bookCount / 5);
+            if (findBook.bookCount % 5 !== 0) findBook.totalPageNum++;
 
             findBook.curPageNum = 1;
             findBook.curPageGroup = 0;
 
-            for(var i = 1; i <= 10 && findBook.curPageGroup*10+i <= findBook.totalPageNum; i++ ) {
+            for (var i = 1; i <= 10 && findBook.curPageGroup * 10 + i <= findBook.totalPageNum; i++) {
                 findBook.pageButtons.push('page-button');
             }
         });
         axios({
-            method:'get',
-            url:'http://127.0.0.1:8082/myproject/book',
-            responseType:'json',
+            method: 'get',
+            url: './book',
+            responseType: 'json',
             params: {
                 pageNum: 1
             }
-        }).then(function(response) {
+        }).then(function (response) {
             // 리스폰 개수 만큼 html 태그를 만들어서 값을 집어넣어주면 됨
             var ready = response.data.map(function (book) {
-                if(book.borrow === false) {
+                if (book.borrow === false) {
                     book.borrow = '대여가능';
                     book.borrow
                 }
@@ -90,8 +90,8 @@ var findBook = new Vue({
                     book.borrow = '대여중';
                 }
 
-                if(book.memberName !== "") {
-                    book.memberName = '대여자 : '+book.memberName;
+                if (book.memberName !== "") {
+                    book.memberName = '대여자 : ' + book.memberName;
                 }
                 return book
             });
@@ -126,7 +126,7 @@ var borrowReturnBook = new Vue({
                 if (borrowReturnBook.findBorrowReturnBook.borrow === '대여가능') {
                     axios({
                         method: 'put',
-                        url: 'http://127.0.0.1:8082/myproject/book',
+                        url: './book',
                         responseType: 'json',
                         data: {
                             bookId: borrowReturnBook.findBorrowReturnBook.bookId,
@@ -154,7 +154,7 @@ var borrowReturnBook = new Vue({
                 if (borrowReturnBook.findBorrowReturnBook.borrow === '대여중') {
                     axios({
                         method: 'put',
-                        url: 'http://127.0.0.1:8082/myproject/book',
+                        url: './book',
                         responseType: 'json',
                         data: {
                             bookId: borrowReturnBook.findBorrowReturnBook.bookId,

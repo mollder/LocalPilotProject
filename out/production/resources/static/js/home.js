@@ -8,7 +8,7 @@ var sendUser = new Vue({
         sendUserInformation : function() {
             axios({
                 method: 'post',
-                url: "http://127.0.0.1:8082/myproject/auth",
+                url: "./auth",
                 data: {
                     memberId: sendUser.memberId,
                     memberPassword: sendUser.memberPassword,

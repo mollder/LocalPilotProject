@@ -13,7 +13,7 @@
             <input type="text" name="id" v-model="memberId" />
 
             <label for="password">password :</label>
-            <input type="text" name="password" v-model="memberPassword"/>
+            <input type="password" name="password" v-model="memberPassword"/>
         <input type="submit" value="전송"/>
     </form>
 </div>

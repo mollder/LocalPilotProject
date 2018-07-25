@@ -8,12 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class roomCreate {
+public class RoomUsers {
     @JsonProperty("users")
     Number[] users;
 
-    public static roomCreate create(Number[] teams){
-        roomCreate c = new roomCreate();
+    public static RoomUsers create(Number[] teams){
+        RoomUsers c = new RoomUsers();
         c.setUsers(teams);
         return c;
     }
