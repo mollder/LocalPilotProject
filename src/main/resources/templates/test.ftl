@@ -5,53 +5,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>Let's hear some stories!</h1>
-        <div>
-            <h3>Alex's stories</h3>
-            <ul class="list-group">
-                <li v-for="story in storiesBy('Alex')" class="list-group-item">
-                    {{ story.writer }} said "{{ story.plot }}"
-                </li>
-            </ul>
-            <h3>John's stories</h3>
-            <ul class="list-group">
-                <li v-for="story in storiesBy('John')" class="list-group-item">
-                    {{ story.writer }} said "{{ story.plot }}"
-                </li>
-            </ul>
-        </div>
-        <pre>
-            {{ $data }}
-        </pre>
+        <story plot="My horse is amazing."></story>
+        <story plot="Narwhals invented Shish Kebab"></story>
+        <story plot="The dark side of the Force is stronger."></story>
     </div>
+
 </body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.js"></script>
+<template id="story-template">
+    <h1>{{ plot }}</h1>
+</template>
 <script type="text/javascript">
+    Vue.component('story', {
+        props: ['plot'],
+        template: "#story-template"
+    });
+
     new Vue({
         el: '.container',
-        data: {
-            stories: [
-                {
-                    plot: "I crashed my car today!",
-                    writer: "Alex"
-                },
-                {
-                    plot: "Yesterday, someone stole my bag!",
-                    writer: "John"
-                },
-                {
-                    plot: "Someone ate my chocolate...",
-                    writer: "Alex"
-                },
-            ]
-        },
-        methods: {
-            storiesBy: function (writer) {
-                return this.stories.filter(function (story) {
-                    return story.writer ===writer;
-                })
-            },
-        }
-    });
+    })
 </script>
 </html>

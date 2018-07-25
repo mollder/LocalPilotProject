@@ -2,13 +2,8 @@ package my.pro.ject.login;
 
 import lombok.RequiredArgsConstructor;
 import my.pro.ject.domain.Member;
-import my.pro.ject.pojo.v1.MemberGetV1;
-import my.pro.ject.pojo.v3.V3Room;
-import my.pro.ject.service.MemberService;
 import my.pro.ject.teamUpTemplate.OAuth2.OAuth2Template;
 import my.pro.ject.teamUpTemplate.V1.UserInfoManager;
-import my.pro.ject.teamUpTemplate.V1.V1Template;
-import my.pro.ject.teamUpTemplate.V3.V3Template;
 import my.pro.ject.teamUpTemplate.bot.BotAlarmManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +18,7 @@ import javax.validation.constraints.NotNull;
 
 @Component
 @RequiredArgsConstructor
-public class PasswordCredentialLogin {
+public class Login {
 
     @NotNull
     private final OAuth2Template oAuth2Template;
@@ -40,14 +35,14 @@ public class PasswordCredentialLogin {
 
         if(tokenBody.getTokenType() != null) {
             Member member = userInfoManager.updateLoginMemberInformation(memberId, httpSession);
-            userAuthorize(memberId, memberPassword, httpSession);
+            setUserRole(memberId, memberPassword, httpSession);
             botAlarmManager.loginAlarm(member);
         }
 
         return tokenResponse;
     }
 
-    private void userAuthorize(String memberId, String memberPassword, HttpSession httpSession) {
+    private void setUserRole(String memberId, String memberPassword, HttpSession httpSession) {
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(memberId, memberPassword, AuthorityUtils.createAuthorityList("USER")));
         httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
     }

@@ -34,10 +34,13 @@
                    <input type="radio" v-bind:id ='book.bookId' v-bind:value="book.bookId" v-model="checkBookId"/>
                     책 이름 : {{book.bookName}} <br>
                     책 아이디: {{book.bookId}}  <br>
-                    책 대여여부 : {{book.borrow}} <!-- 여기에 새로운 변수를 만들어서 대여중인 경우 대여자 이름까지 표시  -->
+                    책 대여여부 : {{book.borrow}} {{book.borrowName}} <!-- 여기에 새로운 변수를 만들어서 대여중인 경우 대여자 이름까지 표시  -->
                 </li>
             </ul>
         </div>
+        <component v-for="page in pageButtons" :is="page">
+
+        </component>
     </div>
 
     <div id = 'page-div' class='container'>

@@ -10,13 +10,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @Configurable
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private static final String[] AUTH_WHITELIST = {
             "/home",
             "/",
             "/auth",
             "/js/**",
-            "/css/**"
+            "/css/**",
+            "/test"
     };
 
     @Override

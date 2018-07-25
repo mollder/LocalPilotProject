@@ -1,12 +1,10 @@
 package my.pro.ject.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,6 +22,5 @@ public class BorrowBook {
     @JoinColumn(name = "bookId")
     private Book book;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date borrowDate;
+    private LocalDate borrowDate;
 }

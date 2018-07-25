@@ -42,10 +42,10 @@ public class BookController {
         return "index";
     }
 
-    @RequestMapping(value = "book", method = RequestMethod.GET)
+    @RequestMapping(value = "book", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public List<Book> findBookList() {
-        List<Book> bookList = bookService.findBookList();
+    public List<Book> findPageBook(@RequestParam("pageNum") int pageNum) {
+        List<Book> bookList = bookService.findPageBook(pageNum);
 
         return bookList;
     }
@@ -55,6 +55,7 @@ public class BookController {
     public Book borrowOrReturnBook(@RequestBody Book book, Principal principal) {
         Member member = memberService.findMember(principal.getName());
         Book result = bookService.borrowOrReturnBook(book, member);
+        System.out.println(result.isBorrow());
         return result;
     }
 

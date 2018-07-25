@@ -1,3 +1,35 @@
+Vue.component('page-button', {
+    template: '<button v-bind:id="pageId" v-bind:value="pageNum" @click="getBookList">{{pageNum}}</button>',
+    data: function () {
+        findBook.pageIndex++;
+        return {
+            pageId: 'page'+findBook.curPageGroup*10+findBook.pageIndex,
+            pageNum: findBook.curPageGroup*10+findBook.pageIndex
+        }
+    },
+    methods: {
+        getBookList: function () {
+            axios({
+                method:'get',
+                url:'http://127.0.0.1:8082/myproject/book',
+                responseType:'json',
+                params: {
+                    pageNum: this.pageNum
+                }
+            }).then(function(response) {
+                // 리스폰 개수 만큼 html 태그를 만들어서 값을 집어넣어주면 됨
+                var ready = response.data.map(function (book) {
+                    if(book.borrow === false) book.borrow = '대여가능';
+                    else book.borrow = '대여중';
+                    return book
+                });
+                findBook.bookList = ready;
+                console.log(response);
+            });
+        }
+    }
+});
+
 var addBook = new Vue({
     el: "#add-book-div",
     data: {
@@ -15,9 +47,12 @@ var findBook = new Vue({
     data: {
         bookList: '',
         checkBookId: '',
+        pageButtons: [],
         bookCount: 0,
         totalPageNum: 0,
-        currentPageNum: 0,
+        curPageNum: 0,
+        curPageGroup: 0,
+        pageIndex: 0
     },
     mounted: function () {
         axios({
@@ -27,30 +62,41 @@ var findBook = new Vue({
         }).then(function(response) {
             // 리스폰 개수 만큼 html 태그를 만들어서 값을 집어넣어주면 됨
             findBook.bookCount = response.data;
-            findBook.totalPageNum = findBook.bookCount/5;
+            findBook.totalPageNum = parseInt(findBook.bookCount/5);
             if(findBook.bookCount % 5 !== 0) findBook.totalPageNum++;
 
-            console.log(response.data);
-        });
-    },
-});
+            findBook.curPageNum = 1;
+            findBook.curPageGroup = 0;
 
-/*
-axios({
+            for(var i = 1; i <= 10 && findBook.curPageGroup*10+i <= findBook.totalPageNum; i++ ) {
+                findBook.pageButtons.push('page-button');
+            }
+        });
+        axios({
             method:'get',
             url:'http://127.0.0.1:8082/myproject/book',
-            responseType:'json'
+            responseType:'json',
+            params: {
+                pageNum: 1
+            }
         }).then(function(response) {
             // 리스폰 개수 만큼 html 태그를 만들어서 값을 집어넣어주면 됨
             var ready = response.data.map(function (book) {
-                if(book.borrow === false) book.borrow = '대여가능';
-                else book.borrow = '대여중';
+                if(book.borrow === false) {
+                    book.borrow = '대여가능';
+                    book.borrow
+                }
+                else {
+                    book.borrow = '대여중';
+                }
                 return book
             });
             findBook.bookList = ready;
             console.log(response);
         });
- */
+    }
+});
+
 var borrowReturnBook = new Vue({
     el: '#borrow-return-book-div',
     data: {
@@ -90,6 +136,9 @@ var borrowReturnBook = new Vue({
                         findBook.bookList[borrowReturnBook.index] = response.data;
                         findBook.bookList[borrowReturnBook.index].borrow = '대여중';
                     });
+
+
+
                     window.location.reload();
                 } else {
                     alert("이 책은 이미 대여중입니다.");

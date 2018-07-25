@@ -22,20 +22,4 @@ public class Book {
     private String bookName;
 
     private boolean isBorrow = false;
-
-    public void setBookId(String id) {
-        this.bookId = id;
-    }
-
-    public void setBookName(String name) {
-        this.bookName = name;
-    }
-
-    public void setBorrow(boolean b) {
-        this.isBorrow = b;
-    }
-
-    public boolean isBorrow() {
-        return this.isBorrow;
-    }
 }

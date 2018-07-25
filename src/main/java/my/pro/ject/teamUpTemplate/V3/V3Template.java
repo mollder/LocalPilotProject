@@ -36,11 +36,11 @@ public class V3Template extends BaseTemplate {
         return post(builder.toUriString(), inviteUser, p, botTokenManager.getToken());
     }
 
-    public ResponseEntity<Object> sendMessage(int roomNum) {
+    public ResponseEntity<Object> sendMessage(int roomNum, String message) {
         String url = this.url+"message/"+roomNum;
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
 
-        Say say = Say.create("도서 대여 시스템에 로그인되셨습니다.");
+        Say say = Say.create(message);
 
         ParameterizedTypeReference<Object> p = new ParameterizedTypeReference<Object>() {
         };

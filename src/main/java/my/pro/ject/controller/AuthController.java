@@ -1,11 +1,8 @@
 package my.pro.ject.controller;
 
 import lombok.RequiredArgsConstructor;
-import my.pro.ject.login.PasswordCredentialLogin;
+import my.pro.ject.login.Login;
 import my.pro.ject.pojo.MembAuthReqObj;
-import my.pro.ject.pojo.v1.MemberGetV1;
-import my.pro.ject.teamUpTemplate.BaseTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Controller;
@@ -21,9 +18,8 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 @RequestMapping("")
 public class AuthController {
-
     @NotNull
-    private final PasswordCredentialLogin login;
+    private final Login login;
 
     @RequestMapping("")
     public String auth() {

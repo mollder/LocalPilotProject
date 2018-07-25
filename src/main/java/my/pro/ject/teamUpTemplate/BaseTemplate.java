@@ -24,14 +24,14 @@ public class BaseTemplate {
     }
 
     private <T> ResponseEntity<T> send(String url, Object request, HttpMethod httpMethod, ParameterizedTypeReference<T> p, OAuth2AccessToken oAuth2AccessToken) {
-        HttpHeaders httpHeaders = getHerader(oAuth2AccessToken);
+        HttpHeaders httpHeaders = getHeader(oAuth2AccessToken);
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(request, httpHeaders);
 
         return restTemplate.exchange(UriComponentsBuilder.fromUriString(url).toUriString(), httpMethod, httpEntity, p);
     }
 
-    private HttpHeaders getHerader(OAuth2AccessToken oAuth2AccessToken) {
+    private HttpHeaders getHeader(OAuth2AccessToken oAuth2AccessToken) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
         httpHeaders.set("Authorization", oAuth2AccessToken.getTokenType()+" "+oAuth2AccessToken.getValue());
