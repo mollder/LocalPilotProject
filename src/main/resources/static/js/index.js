@@ -45,7 +45,7 @@ var addBook = new Vue({
 var findBook = new Vue({
     el: '#find-book-div',
     data: {
-        bookList: '',
+        bookList: [],
         checkBookId: '',
         pageButtons: [],
         bookCount: 0,
@@ -57,7 +57,7 @@ var findBook = new Vue({
     mounted: function () {
         axios({
             method:'get',
-            url:'http://127.0.0.1:8082/myproject/bookNum',
+            url:'http://127.0.0.1:8082/myproject/bookNum', // 상대경로
             responseType:'json'
         }).then(function(response) {
             // 리스폰 개수 만큼 html 태그를 만들어서 값을 집어넣어주면 됨
@@ -88,6 +88,10 @@ var findBook = new Vue({
                 }
                 else {
                     book.borrow = '대여중';
+                }
+
+                if(book.memberName !== "") {
+                    book.memberName = '대여자 : '+book.memberName;
                 }
                 return book
             });
@@ -135,6 +139,7 @@ var borrowReturnBook = new Vue({
                         console.log(response.data);
                         findBook.bookList[borrowReturnBook.index] = response.data;
                         findBook.bookList[borrowReturnBook.index].borrow = '대여중';
+                        window.location.reload();
                     });
                 } else {
                     alert("이 책은 이미 대여중입니다.");
@@ -162,6 +167,8 @@ var borrowReturnBook = new Vue({
                         console.log(response.data);
                         findBook.bookList[borrowReturnBook.index] = response.data;
                         findBook.bookList[borrowReturnBook.index].borrow = '대여가능';
+                        findBook.bookList[borrowReturnBook.index].memberName = '';
+                        window.location.reload();
                     });
                 } else {
                     alert("이 책은 대여 가능한 책입니다.");

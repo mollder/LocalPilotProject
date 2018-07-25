@@ -30,10 +30,10 @@ public class UserInfoManager {
 
             LinkedHashMap<String, Integer> linkedHashMap = (LinkedHashMap<String, Integer>) memberResponse.getBody().getTeams()[0];
             MemberGetV1 memberGetV1 = memberResponse.getBody();
-            member = new Member(memberGetV1.getIndex(),  memberId, memberGetV1.getName(),
+            member = new Member(memberId, memberGetV1.getName(), memberGetV1.getIndex(),
                     memberGetV1.getEmail(), linkedHashMap.get("index"));
+            memberService.saveMember(member);
         }
-        memberService.saveMember(member);
 
         return member;
     }

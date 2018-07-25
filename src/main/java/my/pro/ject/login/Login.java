@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
 @Component
 @RequiredArgsConstructor
 public class Login {
-
     @NotNull
     private final OAuth2Template oAuth2Template;
     @NotNull
@@ -27,13 +26,13 @@ public class Login {
     @NotNull
     private final BotAlarmManager botAlarmManager;
 
-    public ResponseEntity<OAuth2AccessToken> login(String memberId ,String memberPassword, HttpSession httpSession) {
+    public ResponseEntity<OAuth2AccessToken> login(String memberId, String memberPassword, HttpSession httpSession) {
         ResponseEntity<OAuth2AccessToken> tokenResponse = oAuth2Template.getToken(memberId, memberPassword);
         OAuth2AccessToken tokenBody = tokenResponse.getBody();
 
-        httpSession.setAttribute("token", tokenBody); // 인증 받은뒤에 세션에 정보를 올리는 과정
+        httpSession.setAttribute("token", tokenBody);
 
-        if(tokenBody.getTokenType() != null) {
+        if (tokenBody.getTokenType() != null) {
             Member member = userInfoManager.updateLoginMemberInformation(memberId, httpSession);
             setUserRole(memberId, memberPassword, httpSession);
             botAlarmManager.sendLoginAlarm(member);

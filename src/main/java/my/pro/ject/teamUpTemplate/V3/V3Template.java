@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
+import java.util.Collections;
 
 @RequiredArgsConstructor
 @Component
@@ -26,7 +27,7 @@ public class V3Template extends BaseTemplate {
         String url = this.url+"room/" + botTeamNum; // 봇의 팀 넘버
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
 
-        Number[] teams = new Number[1];
+        Number[] teams = new Number[]{ member.getMemberIdx()};
         teams[0] = member.getMemberIdx();// 로그인한 사람 번호
         Object inviteUser = roomCreate.create(teams);
 

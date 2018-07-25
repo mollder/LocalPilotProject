@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddBookReqObj {
+public class AddBookReq {
     private String id;
     private String name;
 }

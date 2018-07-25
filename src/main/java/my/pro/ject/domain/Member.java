@@ -11,10 +11,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Member {
-    private int memberIdx;
     @Id
     private String memberId;
     private String memberName;
+    private int memberIdx;
     private String email;
     private Number teamNum;
 }

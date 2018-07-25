@@ -36,9 +36,9 @@ public class BotAlarmManager {
         Book book = borrowBook.getBook();
 
         String message = "책 대여가 완료 되었습니다.\n" +
-                "책 이름: "+book.getBookName()+"\n"+
-                "책 아이디: "+book.getBookId()+"\n"+
-                "반납일: " +borrowBook.getBorrowDate().plusDays(14);
+                "책 이름: " + book.getBookName() + "\n" +
+                "책 아이디: " + book.getBookId() + "\n" +
+                "반납일: " + borrowBook.getBorrowDate().plusDays(14);
 
         v3Template.sendMessage(roomNum, message);
     }
@@ -47,8 +47,8 @@ public class BotAlarmManager {
         int roomNum = getRoomNum(member);
 
         String message = "책 반납이 완료 되었습니다.\n" +
-                "책 이름: "+book.getBookName()+"\n"+
-                "책 아이디: "+book.getBookId();
+                "책 이름: " + book.getBookName() + "\n" +
+                "책 아이디: " + book.getBookId();
 
         v3Template.sendMessage(roomNum, message);
     }

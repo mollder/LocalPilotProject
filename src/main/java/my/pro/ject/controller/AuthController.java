@@ -2,7 +2,7 @@ package my.pro.ject.controller;
 
 import lombok.RequiredArgsConstructor;
 import my.pro.ject.login.Login;
-import my.pro.ject.pojo.MembAuthReqObj;
+import my.pro.ject.pojo.MemberAuthReq;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class AuthController {
 
     @RequestMapping(value = "auth", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<OAuth2AccessToken> sendUserInformation(@RequestBody MembAuthReqObj membAuthReqObj, HttpSession httpSession) {
-        return login.login(membAuthReqObj.getMemberId(), membAuthReqObj.getMemberPassword(), httpSession);
+    public ResponseEntity<OAuth2AccessToken> sendUserInformation(@RequestBody MemberAuthReq memberAuthReq, HttpSession httpSession) {
+        return login.login(memberAuthReq.getMemberId(), memberAuthReq.getMemberPassword(), httpSession);
     }
 }

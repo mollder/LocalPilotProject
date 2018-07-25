@@ -2,7 +2,8 @@ package my.pro.ject.controller;
 
 import lombok.RequiredArgsConstructor;
 import my.pro.ject.domain.Member;
-import my.pro.ject.pojo.AddBookReqObj;
+import my.pro.ject.pojo.AddBookReq;
+import my.pro.ject.pojo.PageBook;
 import my.pro.ject.service.BookService;
 import my.pro.ject.service.MemberService;
 import org.springframework.stereotype.Controller;
@@ -37,15 +38,15 @@ public class BookController {
     }
 
     @RequestMapping(value ="book", method = RequestMethod.POST)
-    public String addBook(@Valid AddBookReqObj addBookReqObj) {
-        boolean result = bookService.addBook(addBookReqObj);
+    public String addBook(@Valid AddBookReq addBookReq) {
+        boolean result = bookService.addBook(addBookReq);
         return "index";
     }
 
     @RequestMapping(value = "book", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public List<Book> findPageBook(@RequestParam("pageNum") int pageNum) {
-        List<Book> bookList = bookService.findPageBook(pageNum);
+    public List<PageBook> findPageBook(@RequestParam("pageNum") int pageNum) {
+        List<PageBook> bookList = bookService.findPageBook(pageNum);
 
         return bookList;
     }
@@ -55,7 +56,6 @@ public class BookController {
     public Book borrowOrReturnBook(@RequestBody Book book, Principal principal) {
         Member member = memberService.findMember(principal.getName());
         Book result = bookService.borrowOrReturnBook(book, member);
-        System.out.println(result.isBorrow());
         return result;
     }
 

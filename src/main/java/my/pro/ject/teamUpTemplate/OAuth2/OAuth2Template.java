@@ -1,5 +1,7 @@
 package my.pro.ject.teamUpTemplate.OAuth2;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,10 +13,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 public class OAuth2Template {
+
     RestTemplate restTemplate = new RestTemplate();
-    String client_id = "gg4qe2ay3kfj6o2gu888jqu2ldcl5bny";
+    static final String client_id = "gg4qe2ay3kfj6o2gu888jqu2ldcl5bny";
     String client_secret = "omcbx76tvrkpom45";
     String grant_type = "password";
+    //전체 url로 좀 더 보기 편하게
     String scheme = "https";
     String host = "auth.tmup.com";
 

@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MembAuthReqObj {
+public class MemberAuthReq {
     private String memberId;
     private String memberPassword;
 }

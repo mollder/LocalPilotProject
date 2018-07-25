@@ -19,10 +19,10 @@ public class BotTokenManager {
     private final OAuth2Template oAuth2Template;
 
     public OAuth2AccessToken getBotToken() {
-        if(token == null) {
+        if (token == null) {
             ResponseEntity<OAuth2AccessToken> responseEntity = oAuth2Template.getToken(botId, botPassword);
             token = responseEntity.getBody();
-        }else if(token.isExpired()) {
+        } else if (token.isExpired()) {
             token = oAuth2Template.refreshToken(token.getRefreshToken().getValue()).getBody();
         }
 
