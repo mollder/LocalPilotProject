@@ -33,7 +33,7 @@ public class V3Template extends BaseTemplate {
         ParameterizedTypeReference<V3Room> p = new ParameterizedTypeReference<V3Room>() {
         };
 
-        return post(builder.toUriString(), inviteUser, p, botTokenManager.getToken());
+        return post(builder.toUriString(), inviteUser, p, botTokenManager.getBotToken());
     }
 
     public ResponseEntity<Object> sendMessage(int roomNum, String message) {
@@ -45,6 +45,6 @@ public class V3Template extends BaseTemplate {
         ParameterizedTypeReference<Object> p = new ParameterizedTypeReference<Object>() {
         };
 
-        return post(builder.toUriString(), say, p, botTokenManager.getToken());
+        return post(builder.toUriString(), say, p, botTokenManager.getBotToken());
     }
 }

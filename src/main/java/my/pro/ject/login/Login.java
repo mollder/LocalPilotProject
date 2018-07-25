@@ -36,7 +36,7 @@ public class Login {
         if(tokenBody.getTokenType() != null) {
             Member member = userInfoManager.updateLoginMemberInformation(memberId, httpSession);
             setUserRole(memberId, memberPassword, httpSession);
-            botAlarmManager.loginAlarm(member);
+            botAlarmManager.sendLoginAlarm(member);
         }
 
         return tokenResponse;

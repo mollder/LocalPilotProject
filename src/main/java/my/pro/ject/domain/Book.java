@@ -13,10 +13,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Book {
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idx;
 
+    @Id
     private String bookId;
 
     private String bookName;

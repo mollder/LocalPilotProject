@@ -2,9 +2,11 @@ package my.pro.ject.service;
 
 import lombok.RequiredArgsConstructor;
 import my.pro.ject.domain.Book;
+import my.pro.ject.domain.BorrowBook;
 import my.pro.ject.domain.Member;
 import my.pro.ject.repository.BookRepository;
 import my.pro.ject.pojo.AddBookReqObj;
+import my.pro.ject.repository.BorrowBookRepository;
 import my.pro.ject.teamUpTemplate.bot.BotAlarmManager;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,6 +25,8 @@ public class BookService {
     private final BookRepository bookRepository;
     @NotNull
     private final BotAlarmManager botAlarmManager;
+    @NotNull
+    private final BorrowBookRepository borrowBookRepository;
 
     public boolean addBook(AddBookReqObj addBookReqObj) {
         if(addBookReqObj != null) {
@@ -44,12 +49,24 @@ public class BookService {
 
     public Book borrowOrReturnBook(Book book, Member member) {
         if(book.isBorrow()) {
-            botAlarmManager.returnAlarm(member, book);
+            BorrowBook borrowBook = new BorrowBook();
+            borrowBook.setBook(book);
+            borrowBook.setMember(member);
+            borrowBookRepository.delete(borrowBook);
+
+            botAlarmManager.sendReturnAlarm(member, book);
 
             book.setBorrow(false);
         }
         else {
-            botAlarmManager.borrowAlarm(member, book);
+            BorrowBook borrowBook = new BorrowBook();
+            borrowBook.setMember(member);
+            borrowBook.setBook(book);
+            borrowBook.setBorrowDate(LocalDate.now());
+
+            borrowBookRepository.save(borrowBook);
+
+            botAlarmManager.sendBorrowAlarm(borrowBook);
             book.setBorrow(true);
         }
 

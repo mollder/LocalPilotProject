@@ -136,7 +136,6 @@ var borrowReturnBook = new Vue({
                         findBook.bookList[borrowReturnBook.index] = response.data;
                         findBook.bookList[borrowReturnBook.index].borrow = '대여중';
                     });
-                    window.location.reload();
                 } else {
                     alert("이 책은 이미 대여중입니다.");
                 }
@@ -164,7 +163,6 @@ var borrowReturnBook = new Vue({
                         findBook.bookList[borrowReturnBook.index] = response.data;
                         findBook.bookList[borrowReturnBook.index].borrow = '대여가능';
                     });
-                    window.location.reload();
                 } else {
                     alert("이 책은 대여 가능한 책입니다.");
                 }

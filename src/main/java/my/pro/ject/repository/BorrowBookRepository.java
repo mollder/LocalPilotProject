@@ -1,10 +1,10 @@
 package my.pro.ject.repository;
 
-import my.pro.ject.domain.Book;
+import my.pro.ject.domain.BorrowBook;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BorrowBookRepository extends CrudRepository<Book, Long> {
+public interface BorrowBookRepository extends CrudRepository<BorrowBook, Long> {
 
 }

@@ -1,6 +1,7 @@
 package my.pro.ject.teamUpTemplate.bot;
 
 import lombok.RequiredArgsConstructor;
+import my.pro.ject.domain.BorrowBook;
 import my.pro.ject.domain.Member;
 import my.pro.ject.pojo.v1.MemberGetV1;
 import my.pro.ject.pojo.v3.V3Room;
@@ -23,24 +24,26 @@ public class BotAlarmManager {
     @NotNull
     private final BotTokenManager botTokenManager;
 
-    public void loginAlarm(Member member) {
+    public void sendLoginAlarm(Member member) {
         int roomNum = getRoomNum(member);
 
         v3Template.sendMessage(roomNum, "도서 대여 시스템에 로그인되셨습니다.");
     }
 
-    public void borrowAlarm(Member member, Book book) {
-        int roomNum = getRoomNum(member);
+    public void sendBorrowAlarm(BorrowBook borrowBook) {
+        int roomNum = getRoomNum(borrowBook.getMember());
+
+        Book book = borrowBook.getBook();
 
         String message = "책 대여가 완료 되었습니다.\n" +
                 "책 이름: "+book.getBookName()+"\n"+
                 "책 아이디: "+book.getBookId()+"\n"+
-                "반납일: ";
+                "반납일: " +borrowBook.getBorrowDate().plusDays(14);
 
         v3Template.sendMessage(roomNum, message);
     }
 
-    public void returnAlarm(Member member, Book book) {
+    public void sendReturnAlarm(Member member, Book book) {
         int roomNum = getRoomNum(member);
 
         String message = "책 반납이 완료 되었습니다.\n" +
@@ -56,7 +59,7 @@ public class BotAlarmManager {
     }
 
     private int getTeamNum() {
-        ResponseEntity<MemberGetV1> memberResponse = v1Template.getUserHttpCommunication(botTokenManager.getToken());
+        ResponseEntity<MemberGetV1> memberResponse = v1Template.getUserHttpCommunication(botTokenManager.getBotToken());
 
         LinkedHashMap<String, Integer> linkedHashMap = (LinkedHashMap<String, Integer>) memberResponse.getBody().getTeams()[0];
         System.out.println();
