@@ -1,7 +1,7 @@
 package my.pro.ject.teamUpTemplate.OAuth2;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import my.pro.ject.properties.TeamUpProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,12 +11,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.constraints.NotNull;
+
 @Component
+@RequiredArgsConstructor
 public class OAuth2Template {
 
+    @NotNull
+    private final TeamUpProperties teamUpProperties;
     RestTemplate restTemplate = new RestTemplate();
-    static final String client_id = "gg4qe2ay3kfj6o2gu888jqu2ldcl5bny";
-    String client_secret = "omcbx76tvrkpom45";
+
     String grant_type = "password";
     String scheme = "https";
     String host = "auth.tmup.com";
@@ -26,8 +30,8 @@ public class OAuth2Template {
 
         UriComponentsBuilder builder = getUri()
                 .queryParam("grant_type", grant_type)
-                .queryParam("client_id", client_id)
-                .queryParam("client_secret", client_secret)
+                .queryParam("client_id", teamUpProperties.getClientId())
+                .queryParam("client_secret", teamUpProperties.getClientSecret())
                 .queryParam("username", userId)
                 .queryParam("password", userPassword);
         HttpEntity entity = new HttpEntity(httpHeaders);

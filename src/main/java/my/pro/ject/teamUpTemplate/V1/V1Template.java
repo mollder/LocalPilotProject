@@ -11,14 +11,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class V1Template extends BaseTemplate {
 
-    private String scheme = "https";
-    private String host = "auth.tmup.com";
+    private String url = "https://auth.tmup.com/v1/";
 
     public ResponseEntity<MemberGetV1> getUserHttpCommunication(OAuth2AccessToken oAuth2AccessToken) {
-        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
-                .scheme(scheme)
-                .host(host)
-                .path("/v1/user");
+        String url = this.url + "user/"; // 봇의 팀 넘버
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
 
         ParameterizedTypeReference<MemberGetV1> p = new ParameterizedTypeReference<MemberGetV1>() {
         };
