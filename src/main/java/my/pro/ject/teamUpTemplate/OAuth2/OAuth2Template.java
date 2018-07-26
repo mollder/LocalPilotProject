@@ -19,6 +19,7 @@ public class OAuth2Template {
 
     @NotNull
     private final TeamUpProperties teamUpProperties;
+
     RestTemplate restTemplate = new RestTemplate();
 
     String grant_type = "password";

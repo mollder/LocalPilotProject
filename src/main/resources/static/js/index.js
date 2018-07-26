@@ -12,7 +12,7 @@ Vue.component('page-button', {
             axios({
                 method: 'get',
                 url: './book',
-                responseType: 'json',
+                contentType: 'application/json',
                 params: {
                     pageNum: this.pageNum
                 }
@@ -58,7 +58,7 @@ var findBook = new Vue({
         axios({
             method: 'get',
             url: './bookNum', // 상대경로
-            responseType: 'json'
+            contentType: 'application/json'
         }).then(function (response) {
             // 리스폰 개수 만큼 html 태그를 만들어서 값을 집어넣어주면 됨
             findBook.bookCount = response.data;
@@ -75,7 +75,6 @@ var findBook = new Vue({
         axios({
             method: 'get',
             url: './book',
-            responseType: 'json',
             params: {
                 pageNum: 1
             }
@@ -127,11 +126,13 @@ var borrowReturnBook = new Vue({
                     axios({
                         method: 'put',
                         url: './book',
-                        responseType: 'json',
+                        contentType: 'application/json',
                         data: {
-                            bookId: borrowReturnBook.findBorrowReturnBook.bookId,
-                            bookName: borrowReturnBook.findBorrowReturnBook.bookName,
-                            borrow: false
+                            book: {
+                                bookId: borrowReturnBook.findBorrowReturnBook.bookId,
+                                bookName: borrowReturnBook.findBorrowReturnBook.bookName,
+                                isBorrow: false
+                            }
                         },
                     }).then(function (response) {
                         console.log(response.data);
@@ -153,11 +154,13 @@ var borrowReturnBook = new Vue({
                     axios({
                         method: 'put',
                         url: './book',
-                        responseType: 'json',
+                        contentType: 'application/json',
                         data: {
-                            bookId: borrowReturnBook.findBorrowReturnBook.bookId,
-                            bookName: borrowReturnBook.findBorrowReturnBook.bookName,
-                            borrow: true
+                            book: {
+                                bookId: borrowReturnBook.findBorrowReturnBook.bookId,
+                                bookName: borrowReturnBook.findBorrowReturnBook.bookName,
+                                isBorrow: true
+                            }
                         },
                     }).then(function (response) {
                         console.log(response.data);

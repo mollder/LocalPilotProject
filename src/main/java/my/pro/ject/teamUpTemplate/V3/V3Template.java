@@ -5,6 +5,7 @@ import my.pro.ject.domain.Member;
 import my.pro.ject.pojo.v3.Say;
 import my.pro.ject.pojo.v3.V3Room;
 import my.pro.ject.pojo.v3.RoomUsers;
+import my.pro.ject.properties.TeamUpProperties;
 import my.pro.ject.teamUpTemplate.BaseTemplate;
 import my.pro.ject.teamUpTemplate.bot.BotTokenManager;
 import org.springframework.core.ParameterizedTypeReference;
@@ -19,13 +20,14 @@ import javax.validation.constraints.NotNull;
 public class V3Template extends BaseTemplate {
     @NotNull
     private final BotTokenManager botTokenManager;
+    @NotNull
+    private final TeamUpProperties teamUpProperties;
 
-    private String url = "https://edge.tmup.com/v3/";
 
     public ResponseEntity<V3Room> createRoom(int botTeamNum, Member member) {
-        String url = this.url + "room/" + botTeamNum; // 봇의 팀 넘버
+        String url = teamUpProperties.getV3Url() + "room/" + botTeamNum; // 봇의 팀 넘버
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
-        
+
         Number[] teams = new Number[]{member.getTeamUpIdx()};
         Object inviteUser = RoomUsers.create(teams);
 
@@ -36,7 +38,7 @@ public class V3Template extends BaseTemplate {
     }
 
     public ResponseEntity<Object> sendMessage(int roomNum, String message) {
-        String url = this.url + "message/" + roomNum;
+        String url = teamUpProperties.getV3Url() + "message/" + roomNum;
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
 
         Say say = Say.create(message);

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class TeamUpProperties {
-    @Value("${teamup.client.id }")
+    @Value("${teamup.client.id}")
     private String clientId;
 
     @Value("${teamup.client.secret}")
@@ -20,4 +20,10 @@ public class TeamUpProperties {
 
     @Value("${teamup.bot.pw}")
     private String botPassword;
+
+    @Value("${teamup.v1.url}")
+    private String v1Url;
+
+    @Value("${teamup.v3.url}")
+    private String v3Url;
 }
