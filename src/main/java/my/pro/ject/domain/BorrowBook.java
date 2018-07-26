@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import my.pro.ject.pojo.BorrowBookPk;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,14 +13,16 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@IdClass(BorrowBookPk.class)
-public class BorrowBook{
+public class BorrowBook {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int idx;
+
     @OneToOne
     @JoinColumn(name = "memberId")
     private Member member;
 
-    @Id
     @OneToOne
     @JoinColumn(name = "bookId")
     private Book book;

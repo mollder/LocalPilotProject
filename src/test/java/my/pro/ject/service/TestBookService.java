@@ -4,6 +4,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class TestBookService {
-    private BookService bookServiceImpl;
+    private BookService bookService;
 
 }

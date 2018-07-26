@@ -5,6 +5,10 @@ import my.pro.ject.domain.BorrowBook;
 import my.pro.ject.domain.Member;
 import my.pro.ject.pojo.v1.MemberGetV1;
 import my.pro.ject.pojo.v3.V3Room;
+import my.pro.ject.repository.BookRepository;
+import my.pro.ject.repository.MemberRepository;
+import my.pro.ject.service.BookService;
+import my.pro.ject.service.MemberService;
 import my.pro.ject.teamUpTemplate.V1.V1Template;
 import my.pro.ject.teamUpTemplate.V3.V3Template;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +27,10 @@ public class BotAlarmManager {
     private final V1Template v1Template;
     @NotNull
     private final BotTokenManager botTokenManager;
+    @NotNull
+    private final MemberRepository memberRepository;
+    @NotNull
+    private final BookRepository bookRepository;
 
     public void sendLoginAlarm(Member member) {
         int roomNum = getRoomNum(member);

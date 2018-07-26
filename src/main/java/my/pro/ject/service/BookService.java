@@ -29,6 +29,8 @@ public class BookService {
     private final BotAlarmManager botAlarmManager;
     @NotNull
     private final BorrowBookRepository borrowBookRepository;
+    @NotNull
+    private final MemberService memberService;
 
     public boolean addBook(AddBookReq addBookReq) {
         if(addBookReq != null) {
@@ -67,28 +69,28 @@ public class BookService {
 
     public Book borrowOrReturnBook(Book book, Member member) {
         if(book.isBorrow()) {
+            book.setBorrow(false);
+            bookRepository.save(book);
+
             BorrowBook borrowBook = new BorrowBook();
-            borrowBook.setBook(book);
             borrowBook.setMember(member);
+            borrowBook.setBook(book);
             borrowBookRepository.deleteBorrowBookByBook_BookId(book.getBookId());
 
             botAlarmManager.sendReturnAlarm(member, book);
-
-            book.setBorrow(false);
         }
         else {
-            BorrowBook borrowBook = new BorrowBook();
-            borrowBook.setMember(member);
-            borrowBook.setBook(book);
-            borrowBook.setBorrowDate(LocalDate.now());
+            book.setBorrow(true);
+            bookRepository.save(book);
 
+            BorrowBook borrowBook = new BorrowBook();
+            borrowBook.setBook(book);
+            borrowBook.setMember(member);
+            borrowBook.setBorrowDate(LocalDate.now());
             borrowBookRepository.save(borrowBook);
 
             botAlarmManager.sendBorrowAlarm(borrowBook);
-            book.setBorrow(true);
         }
-
-        bookRepository.save(book);
 
         return book;
     }
@@ -96,4 +98,5 @@ public class BookService {
     public long findBookCount() {
         return bookRepository.count();
     }
+
 }

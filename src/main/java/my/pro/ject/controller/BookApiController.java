@@ -28,7 +28,7 @@ public class BookApiController {
         return bookList;
     }
 
-    @RequestMapping(value = "book", method = RequestMethod.PUT)
+    @RequestMapping(value = "book", method = RequestMethod.PUT, headers = "Accept=application/json")
     public Book borrowOrReturnBook(@RequestBody Book book, Principal principal) {
         Member member = memberService.findMember(principal.getName());
         Book result = bookService.borrowOrReturnBook(book, member);
